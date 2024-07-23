@@ -72,7 +72,10 @@ const Mapbox = () => {
     mapRef.current = new mapboxgl.Map({
       container: mapContainerRef.current,
       style: 'mapbox://styles/mapbox/outdoors-v12',
-      center: [77.020643, 28.51346],
+      center:  [
+        77.022265,
+        28.464384
+    ],
       zoom: 12
     });
 
@@ -123,8 +126,8 @@ const Mapbox = () => {
       />
       
       {!isMapLoading && <>
-        <LeftSideBar layers={layers} handleLayerVisibility={handleLayerVisibility} setSelectedLayer={setSelectedLayer}/>
-        {Object.keys(selectedLayer).length && <RightSideBar selectedLayer={selectedLayer}/>}
+        <LeftSideBar layers={layers} handleLayerVisibility={handleLayerVisibility} selectedLayer={selectedLayer} setSelectedLayer={setSelectedLayer}/>
+        {Object.keys(selectedLayer).length > 0 && <RightSideBar selectedLayer={selectedLayer}/>}
       </>}
       
     </div>

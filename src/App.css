@@ -51,15 +51,16 @@
 
 
 #resizable {
+  height: max-content;
   width: 200px;
   border: 1px solid #000;
 }
 
 #resize-handle {
   width: 100%;
-  height: 10px;
+  height: 5px;
   background: #ccc;
-  position: absolute;
   bottom: 0;
+  position: absolute;
   cursor: ns-resize;
 }
