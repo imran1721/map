@@ -1,14 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
-
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { LeftSideBar } from './LeftSideBar';
 import { RightSideBar } from './RightSideBar';
 import apartmentData from "../../src/assets/data/apartment.json"
 import localityData from "../../src/assets/data/locality.json"
-import {ResizableDiv} from './Resize';
+import { VISIBILITY_ENUM } from '../utils/constants';
 
 const token = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN
+const { VISIBLE, NONE } = VISIBILITY_ENUM
+const VISIBILITY = "visibility"
 
 const LAYER_CONFIG = [
   {
@@ -16,7 +17,7 @@ const LAYER_CONFIG = [
     name: "Apartment",
     value: "apartment",
     data: apartmentData,
-    visibility: "visible",
+    visibility: NONE,
     layers: [{
       type: "line",
       paint: {
@@ -31,7 +32,6 @@ const LAYER_CONFIG = [
         'fill-opacity': 0.3
       }
     }
-
     ]
   },
 
@@ -40,7 +40,7 @@ const LAYER_CONFIG = [
     name: "Locality",
     value: "locality",
     data: localityData,
-    visibility: "visible",
+    visibility: NONE,
     layers: [{
       type: "line",
       paint: {
@@ -72,16 +72,15 @@ const Mapbox = () => {
     mapRef.current = new mapboxgl.Map({
       container: mapContainerRef.current,
       style: 'mapbox://styles/mapbox/outdoors-v12',
-      center:  [
+      center: [
         77.022265,
         28.464384
-    ],
-      zoom: 12
+      ],
+      zoom: 9
     });
 
     mapRef.current.on('load', () => {
       setIsMapLoading(false)
-
       LAYER_CONFIG.forEach(({ value, visibility, data, layers }) => {
         if (!mapRef.current.getSource(value)) {
           mapRef.current.addSource(value, {
@@ -106,15 +105,15 @@ const Mapbox = () => {
   }, []);
 
   const handleLayerVisibility = (clickedLayer) => {
-    const fillLayerVisibility = mapRef.current.getLayoutProperty(`${clickedLayer}fill`, 'visibility');
-    const newVisibility = fillLayerVisibility === 'visible' ? 'none' : 'visible';
+    const fillLayerVisibility = mapRef.current.getLayoutProperty(`${clickedLayer}fill`, VISIBILITY);
+    const newVisibility = fillLayerVisibility === VISIBLE ? NONE : VISIBLE;
+
     setLayers(prev => prev.map(layer =>
       layer.value === clickedLayer ? { ...layer, visibility: newVisibility } : layer
     ));
 
-  
-    mapRef.current.setLayoutProperty(`${clickedLayer}fill`, 'visibility', newVisibility);
-    mapRef.current.setLayoutProperty(`${clickedLayer}line`, 'visibility', newVisibility);
+    mapRef.current.setLayoutProperty(`${clickedLayer}fill`, VISIBILITY, newVisibility);
+    mapRef.current.setLayoutProperty(`${clickedLayer}line`, VISIBILITY, newVisibility);
   };
 
   return (
@@ -124,12 +123,12 @@ const Mapbox = () => {
         ref={mapContainerRef}
         style={{ height: '100vh', width: '100vw' }}
       />
-      
+
       {!isMapLoading && <>
-        <LeftSideBar layers={layers} handleLayerVisibility={handleLayerVisibility} selectedLayer={selectedLayer} setSelectedLayer={setSelectedLayer}/>
-        {Object.keys(selectedLayer).length > 0 && <RightSideBar selectedLayer={selectedLayer}/>}
+        <LeftSideBar layers={layers} handleLayerVisibility={handleLayerVisibility} selectedLayer={selectedLayer} setSelectedLayer={setSelectedLayer} />
+        {Object.keys(selectedLayer).length > 0 && <RightSideBar selectedLayer={selectedLayer} />}
       </>}
-      
+
     </div>
   );
 };

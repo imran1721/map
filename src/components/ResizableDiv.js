@@ -1,8 +1,7 @@
 import React, { useState, useRef } from 'react';
 
 export const ResizableDiv = ({ children }) => {
-  console.log(children)
-  const [height, setHeight] = useState(450);
+  const [height, setHeight] = useState(420);
   const resizableRef = useRef(null);
 
   const handleMouseDown = (e) => {
