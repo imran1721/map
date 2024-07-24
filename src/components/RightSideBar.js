@@ -22,6 +22,7 @@ export const RightSideBar = ({ selectedLayer }) => {
             <span className="text-white text-base font-semibold">{name}</span>
         </div>
         <div className="px-4 py-4">
+            <div className="text-black bg-white rounded-full py-2 px-4 w-max text-sm font-medium mb-2">Attributes</div>
             {attributes.map(({ key, type }) =>
                 <div key={key} className="flex items-center my-1">
                     <span className="text-xs mr-2">{TYPES[type]}</span>
