@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 
 export const ResizableDiv = ({ children }) => {
-  const [height, setHeight] = useState(420);
+  const [height, setHeight] = useState(450);
   const resizableRef = useRef(null);
 
   const handleMouseDown = (e) => {
@@ -25,7 +25,7 @@ export const ResizableDiv = ({ children }) => {
 
   return (
     <div
-      className='rounded-md w-64 border bg-black/90 m-2 fixed top-0'
+      className='rounded-md w-72 border bg-black/90 m-4 fixed top-0 shadow-2xl'
       id="resizable"
       ref={resizableRef}
       style={{ height: `${height}px` }}

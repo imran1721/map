@@ -13,7 +13,7 @@ export const LeftSideBar = ({ layers, handleLayerVisibility, setSelectedLayer, s
             <div className='text-white/80 h-[100%]'>
                 <div className="h-[10%] flex py-2 items-center px-4 bg-black/100 rounded-md">
                     <img className="w-5 mr-2" src={LayersIcon} alt="Layer Icon" />
-                    <span className="text-sm">Layers</span>
+                    <span className="text-base">Layers</span>
                 </div>
                 <div className="h-[90%] pb-8 p-2 overflow-auto">
                     <div className="my-3 flex items-center h-3 cursor-pointer" onClick={() => setIsExpanded((prev) => !prev)}>
@@ -21,10 +21,10 @@ export const LeftSideBar = ({ layers, handleLayerVisibility, setSelectedLayer, s
                             <img className="h-3 mr-2" src={isExpanded ? ChevronDownIcon : ChevronLeftIcon} alt="Chevron Icon" />
                             <img className="h-3" src={isExpanded ? OpenFolderIcon : CloseFolderIcon} alt="Folder Icon" />
                         </div>
-                        <div className="text-xs">Regions</div>
+                        <div className="text-sm">Regions</div>
                     </div>
                     {isExpanded && (
-                        <ul className="text-white/60 text-xs">
+                        <ul className="text-white/60 text-sm">
                             {layers.map((eachLayer) => (
                                 <li
                                     className={`w-full px-4 flex cursor-pointer justify-between p-2 border-b mb-1 rounded hover:bg-blue-700/30 hover:border-gray-50/50 hover:border, ${selectedLayer.id === eachLayer.id && 'bg-blue-900 font-semibold text-white'}`}
@@ -52,9 +52,9 @@ export const LeftSideBar = ({ layers, handleLayerVisibility, setSelectedLayer, s
                     <div className="mb-3 mt-4 flex h-3 cursor-not-allowed">
                         <img className="mr-2" src={ChevronDownIcon} alt="Chevron Icon" />
                         <img className="mr-2" src={OpenFolderIcon} alt="Folder Icon" />
-                        <span className="text-xs">Dummy</span>
+                        <span className="text-sm">Dummy</span>
                     </div>
-                    <ul className="text-white/60 cursor-not-allowed text-xs">
+                    <ul className="text-white/60 cursor-not-allowed text-sm">
                         {dummyList.map((eachLayer, index) => (
                             <li key={index} className="w-full px-4 flex justify-between p-2 border-b mb-1 rounded">
                                 {eachLayer}
